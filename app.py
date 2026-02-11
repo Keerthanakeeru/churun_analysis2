@@ -13,17 +13,21 @@ with open("model.pkl", "rb") as f:
 def home():
     return render_template('index.html')
 
-@app.route('/predict', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def predict():
     data = [float(x) for x in request.form.values()]
     scaled_data = scaler.transform([data])
     prediction = model.predict(scaled_data)[0]
     result = "Customer is likely to churn" if prediction == 1 else "Cusotmer will stay"
     return render_template('index.html', prediction_text=result)
+@app.route('/analyze', methods=['POST'])
+def analyze():
+    # your code here
+    pass   
+    
 
 if __name__ =='__main__':
     app.run(debug= True)
 
-    
-    
+
 
